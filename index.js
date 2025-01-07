@@ -24,7 +24,7 @@ const server = http.createServer((req, res) =>{
     return;
   }
 
-  if (req.url === 'https://todo-backend-vercel-cyan.vercel.app/todos' && req.method === 'GET') {
+  if (req.url === '/api/todos' && req.method === 'GET') {
     getTodos(req, res);
   }else if (req.url.match(/\/todos\/\w+/) && req.method === 'GET') {
     const id = req.url.split('/')[2];
