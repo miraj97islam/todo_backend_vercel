@@ -24,6 +24,7 @@ const server = http.createServer((req, res) =>{
     return;
   }
 
+
   if (req.url === '/todos' && req.method === 'GET') {
     getTodos(req, res);
   }else if (req.url.match(/\/todos\/\w+/) && req.method === 'GET') {
@@ -52,4 +53,4 @@ const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-module.exports = server;
+// module.exports = server;
