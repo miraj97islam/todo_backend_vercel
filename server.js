@@ -9,20 +9,49 @@ const {
 } = require('./controllers/todoController');
 
 const server = http.createServer((req, res) =>{
-  
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  // res.setHeader('Access-Control-Allow-Origin', 'https://todo-backend-vercel-cyan.vercel.app');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 
   if (req.method === 'OPTIONS') {
-    res.statusCode = 204; // No Content
-    res.end();
-    return;
+    // CORS headers to allow the actual request from your frontend origin
+    res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+    return res.status(204).end();  // Respond with status 204 (No Content)
   }
+
+
+
+
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  // if (req.method === 'OPTIONS') {
+  //   res.status(200).end()
+  //   return
+  // }
+  
+
+  
+  // res.setHeader('Content-Type', 'application/json');
+  // res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  // // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  // res.setHeader('Access-Control-Allow-Origin', 'https://todo-react-vercel-o1d6qa8uo-miraj97islams-projects.vercel.app');
+  // res.setHeader('Access-Control-Allow-Headers', 'Content-Type Authorization');
+
+
+  // if (req.method === 'OPTIONS') {
+  //   res.statusCode = 204; // No Content
+  //   res.end();
+  //   return;
+  // }
 
 
   if (req.url === '/todos' && req.method === 'GET') {
@@ -53,4 +82,4 @@ const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-// module.exports = server;
+//  module.exports = server;
