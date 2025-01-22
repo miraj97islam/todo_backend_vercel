@@ -1,6 +1,7 @@
 {
   "version": 2,
   "builds": [
+<<<<<<< Updated upstream
       {
           "src": "/server.js",
           "use": "@vercel/node"
@@ -15,5 +16,17 @@
               "Access-Control-Allow-Origin": "*"
           }
       }
+=======
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+>>>>>>> Stashed changes
   ]
 }

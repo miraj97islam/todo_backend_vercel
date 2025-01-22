@@ -1,5 +1,21 @@
+<<<<<<< Updated upstream
 const http = require('http');
 const cors = require('cors');
+=======
+const express = require('express');
+const app = express();
+const cors = require('cors');
+
+app.use(cors());
+
+// app.use(cors({
+//   origin: 'https://todo-frontend-vercel-two.vercel.app',
+//   // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true
+// }));
+
+app.use(express.json());
+>>>>>>> Stashed changes
 
 const {
  getTodos,
@@ -9,8 +25,8 @@ const {
  getTodo
 } = require('./controllers/todoController');
 
-const server = http.createServer((req, res) =>{
 
+<<<<<<< Updated upstream
   // res.setHeader('Access-Control-Allow-Headers', req.header.origin);
 
   cors({
@@ -75,3 +91,18 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 //  module.exports = server;
+=======
+app.get('/todos', getTodos);
+app.get('/todos/:id', getTodo);
+app.post('/todos', createTodo);
+app.put('/todos/:id', updateTodo);
+app.delete('/todos/:id', deleteTodo);
+
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+module.exports = app;
+>>>>>>> Stashed changes

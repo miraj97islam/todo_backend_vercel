@@ -13,7 +13,9 @@ async function getTodos(req, res) {
 }
 
 
-async function getTodo(req, res, id) {
+async function getTodo(req, res) {
+    const { id } = req.params;
+
     try {
         const todo = await Todos.findById(id)
 
@@ -52,7 +54,10 @@ async function createTodo(req, res) {
 }
 
 
-async function updateTodo(req, res, id) {
+async function updateTodo(req, res) {
+    
+    const{id} = req.params;
+
     try {
         const todo = await Todos.findById(id)
 
@@ -80,7 +85,9 @@ async function updateTodo(req, res, id) {
 }
 
 
-async function deleteTodo(req, res, id) {
+async function deleteTodo(req, res) {
+     const{id} = req.params;
+
     try {
         const todo = await Todos.findById(id)
 
