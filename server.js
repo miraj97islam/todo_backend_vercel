@@ -1,4 +1,5 @@
 const http = require('http');
+const cors = require('cors');
 
 const {
  getTodos,
@@ -10,45 +11,39 @@ const {
 
 const server = http.createServer((req, res) =>{
 
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Credentials', true)
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-    return res.status(204).end();  // Respond with status 204 (No Content)
-  }
+  // res.setHeader('Access-Control-Allow-Headers', req.header.origin);
+
+  cors({
+    origin: '*', // Allow only this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allowed HTTP methods
+  })(req, res, () => {
+    // Handle OPTIONS preflight request
+    if (req.method === 'OPTIONS') {
+      return res.status(204).end(); // Respond with status 204 (No Content)
+    }
+  })
 
 
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    )
-
-
-
-  // if (req.method === 'OPTIONS') {
-  //   res.status(200).end()
-  //   return
-  // }
+  // const handleCors = (res) => {
+  //   res.setHeader('Access-Control-Allow-Credentials', true);
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
+  //   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, PATCH, DELETE, POST, PUT');
+  //   res.setHeader(
+  //     'Access-Control-Allow-Headers',
+  //     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  //   );
+  // };
   
-  // res.setHeader('Content-Type', 'application/json');
-  // res.setHeader("Access-Control-Allow-Origin", "*");
-  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  // // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  // res.setHeader('Access-Control-Allow-Origin', 'https://todo-react-vercel-o1d6qa8uo-miraj97islams-projects.vercel.app');
-  // res.setHeader('Access-Control-Allow-Headers', 'Content-Type Authorization');
+  // const server = http.createServer((req, res) => {
+  
+  //   // Handle OPTIONS preflight request
+  //   if (req.method === 'OPTIONS') {
+  //     handleCors(res);
+  //     return res.status(204).end(); // Respond with status 204 (No Content)
+  //   }
+  
+  //   handleCors(res);
 
-  // if (req.method === 'OPTIONS') {
-  //   res.statusCode = 204; // No Content
-  //   res.end();
-  //   return;
-  // }
 
 
   if (req.url === '/todos' && req.method === 'GET') {
